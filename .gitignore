@@ -1,3 +1,7 @@
+# individual restrictions
+*_plain
+*_character
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="../static/style.css" rel="stylesheet" type="text/css">
+    <title>Character Computing ChatBot: Concept Test Interface</title>
+</head>
+<body onload="scrollbot_vBar()">
+    <script>
+        function enable_survey() {
+            document.querySelectorAll(".tbox").forEach(a=>a.style.display = "none");
+            document.querySelectorAll(".survey").forEach(a=>a.style.display = "block");
+            document.querySelector("#short_task_description").setAttribute("style", "display:none;");
+        }
+        function scrollbot_vBar() {
+            let textarea = document.getElementById('bot_txt');
+            textarea.scrollTop = textarea.scrollHeight;
+            if ("{{ allow_survey }}" == "True") {
+                document.querySelector("#allow_survey").setAttribute("style", "display:block;");
+                document.querySelector("#qry_txt").focus();
+                {#document.querySelectorAll(".tbox").forEach(a=>a.style.display = "none");#}
+                {#document.querySelectorAll("#short_task_description").forEach(a=>a.style.display = "none");#}
+                {#document.querySelectorAll(".survey").forEach(a=>a.style.display = "block");#}
+            }
+            else if ("{{ show_log }}" == "True") {
+                document.querySelectorAll(".survey").forEach(a => a.style.display = "none");
+                document.querySelectorAll(".tbox").forEach(a => a.style.display = "none");
+                document.querySelector("#short_task_description").setAttribute("style", "display:none;");
+                document.querySelector("#log").setAttribute("style", "display:block;");
+            }
+            else if("{{ enable_thankyou }}" == "True") {
+                document.querySelectorAll(".survey").forEach(a => a.style.display = "none");
+                document.querySelectorAll(".tbox").forEach(a => a.style.display = "none");
+                document.querySelector("#thankyou").setAttribute("style", "display:block;");
+                document.querySelector("#short_task_description").setAttribute("style", "display:none;");
+            }
+            else {
+                document.querySelector("#qry_txt").focus();
+            }
+        }
+    </script>
+    <img src="../static/trademark.png" alt="Logo Hundertmark" width="590">
+    <h1>Character Computing ChatBot: Concept Test Interface</h1>
+    <div id="info" class="info blk_style">
+        <p>
+            On the background of this website runs a chatbot of an AI research project in health sector. In case people
+            have a medical issue, they usually seek for a chat partner with enhanced social skills being able answering
+            in a manner adapted to the wellbeing. In parallel, an anonymous communication with a digital AI assistant
+            may be favourable in contrast to biased human doctors.
+        </p>
+
+        <p>
+            In this research project, we try to figure out if an AI assistant can adapt its objective and functional
+            characteristic to a more sensitive personality for a respectful interaction with diseased users. For this
+            reason we implemented this first prototype with limited functionality and usability. This prototype solely
+            focus on the wording of statements and not the statement itself. Please take some minutes and chat with the
+            bot about a personal fictitious health issue and remain your own personality.
+        </p>
+
+        <p>
+            For the sake of seriously measuring the effect of chatbot's adapted personality and the re-wording of
+            proposed answers, it is relevant that your chat comprises at least 4 replies. After the chat experience,
+            we would like to ask you to finish the experiment by sharing your experience in a short questionary.
+        </p>
+
+        <p>
+            You can start the chat by confirming the recording with "<b>yes</b>".
+        </p>
+
+        <p>
+            Thank you for your support.
+        </p>
+        </p>
+    </div>
+    <div id="bot" class="tbox blk_style">
+        <label for="bot_txt" class="p_new_space bot_qry_txt_label">story board:</label>
+        <textarea readonly id="bot_txt" class="tarea">{{ story }}</textarea>
+    </div>
+    <p id="short_task_description" class="info blk_style">
+        <br>
+        <br>
+        Please, send <b>at least 4</b> inputs to the chatbot. Start the experiment with the consent to record your answer.
+    </p>
+    <div id="qry" class="tbox blk_style">
+        <form action="/send_qry/" method="POST">
+            <label for="qry_txt" class="p_new_space bot_qry_txt_label">your message:</label>
+            <textarea id="qry_txt" name="qry_txt" class="tarea"></textarea>
+            <div class="submit_btn input-group">
+                <input type="submit" class="f" value="Send">
+                <button id="allow_survey" onclick="enable_survey()" type="button" class="f init_hide">Continue with Survey</button>
+                <div class="clr"></div>
+            </div>
+        </form>
+    </div>
+    <div id="survey_link" class="survey init_hide p_new_space">
+
+        <form action="/send_survey/" method="POST">
+            <p>Did you have the impression the chatbot changed its personality with respect to the tone of voice (not content related)?</p>
+            <input type="radio" id="pers5" name="pers5" value="5">
+            <label for="pers5">Yes, for sure.</label><br>
+            <input type="radio" id="pers4" name="pers5" value="4">
+            <label for="pers4">Yes, a little bit.</label><br>
+            <input type="radio" id="pers3" name="pers5" value="3">
+            <label for="pers3">Rather not.</label><br>
+            <input type="radio" id="pers2" name="pers5" value="2">
+            <label for="pers2">No, seriously not.</label><br>
+            <input type="radio" id="pers1" name="pers5" value="1">
+            <label for="pers1">I do not know, might be.</label><br>
+
+            <br>
+
+            <p>Had the chatbot an empathic appearance (not content related)?</p>
+            <input type="radio" id="emp5" name="emp3" value="5">
+            <label for="emp5">Yes, for sure.</label><br>
+            <input type="radio" id="emp4" name="emp3" value="4">
+            <label for="emp4">Yes, a little bit.</label><br>
+            <input type="radio" id="emp3" name="emp3" value="3">
+            <label for="emp3">Rather not.</label><br>
+            <input type="radio" id="emp2" name="emp3" value="2">
+            <label for="emp2">No, seriously not.</label><br>
+            <input type="radio" id="emp1" name="emp3" value="1">
+            <label for="emp1">I do not know, might be.</label><br>
+
+            <br>
+
+            <p>Did you have the impression the chatbot attempts to have a positive impact on your emotional state (not content related)?</p>
+            <input type="radio" id="emo5" name="emo5" value="5">
+            <label for="emo5">Yes, for sure.</label><br>
+            <input type="radio" id="emo4" name="emo5" value="4">
+            <label for="emo4">Yes, a little bit.</label><br>
+            <input type="radio" id="emo3" name="emo5" value="3">
+            <label for="emo3">Rather not.</label><br>
+            <input type="radio" id="emo2" name="emo5" value="2">
+            <label for="emo2">No, seriously not.</label><br>
+            <input type="radio" id="emo1" name="emo5" value="1">
+            <label for="emo1">I do not know, might be.</label><br>
+
+            <br>
+
+            <p>How was your personal wellbeing during the communication with the chatbot with respect to the tone of voice (not content related)? Please, reason your answer briefly.</p>
+            <textarea id="wellbeing" name="wellbeing" class="tarea"></textarea>
+            <label for="wellbeing"></label>
+
+            <input type="submit" class="submit_btn" value="Submit">
+        </form>
+    </div>
+    <div id="log" class="info init_hide blk_style p_new_space">
+        <pre>
+            {{ log_txt }}
+        </pre>
+    </div>
+    <div id="thankyou" class="init_hide">
+        <p>
+            Thank you!
+        </p>
+    </div>
+    <p class="blk_style p_new_space">
+        <b>Contact:</b><br>
+        &emsp; Sophie Hundertmark<br>
+        &emsp; <a href="mailto:sophie.hundertmark@hslu.ch">sophie.hundertmark@hslu.ch</a>
+        <br>
+        <br>
+        <br>
+    </p>
+</body>
+</html>
